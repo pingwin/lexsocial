@@ -1,0 +1,18 @@
+<h3>{{ event.title }}</h3>
+
+<p>{{ event.desc|urlize }}</p>
+
+{% if event.loc %}
+<h2>Location: </h2>{{ event.loc }}
+{% endif %}
+<div id = "event-meta" class  = "pull-right">
+    <span>Starts on {{ event.start }} <i class = "icon-time"></i></span><br />
+    <span>Ends on {{ event.end }} <i class = "icon-time"></i></span><br />
+</div>
+{% if event.lat %}
+<img src="https://maps.googleapis.com/maps/api/staticmap?center={{ event.lat }},{{event.long}}&zoom=10&markers=color:blue|label:Location|{{ event.lat }},{{event.long}}&size=500x250&key=AIzaSyDUSTVHCXGB17ZiOcKfnfgVy14hgq8Alxs"/>
+<img src="https://maps.googleapis.com/maps/api/staticmap?center={{ event.lat }},{{event.long}}&zoom=15&markers=color:blue|label:Location|{{ event.lat }},{{event.long}}&size=500x250&key=AIzaSyDUSTVHCXGB17ZiOcKfnfgVy14hgq8Alxs"/>
+{% else %}
+<img src="https://maps.googleapis.com/maps/api/staticmap?center={{ event.loc|urlencode }}&zoom=15&&markers=color:blue|label:Location|{{ event.loc|urlencode }}&size=500x250&key=AIzaSyDUSTVHCXGB17ZiOcKfnfgVy14hgq8Alxs"/>
+{% endif %}
+
