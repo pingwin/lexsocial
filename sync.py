@@ -32,7 +32,7 @@ def _write_it(app, mongo, start, end, group, ev):
                 'long'          : ev['GEO'].longitude if 'GEO' in ev else None,
                 'status'        : ev.get('STATUS', 'CONFIRMED'),
                 'summary'       : ev['SUMMARY'],
-                'desc'          : ev['DESCRIPTION'],
+                'desc'          : ev.get('DESCRIPTION', None),
                 'url'           : ev.get('URL', None),
                 'iCALUID'       : ev['UID']
             },
@@ -101,7 +101,7 @@ def _do_sync(app, mongo, group):
                 
 
 def sync(app, mongo):
-    for group in mongo.db.groups.find({"slab":"in2lex"}):
+    for group in mongo.db.groups.find():
         try:
             _do_sync(app, mongo, group)
         except Exception, inst:
